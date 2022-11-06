@@ -36,4 +36,4 @@ def main(worker):
     multi_worker_model.fit(multi_worker_dataset, epochs=3, steps_per_epoch=70)
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(int(sys.argv[1]))
