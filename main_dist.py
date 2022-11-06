@@ -19,14 +19,15 @@ def main(worker):
         tf_config['task']['index'] = 1
         
     os.environ['TF_CONFIG'] = json.dumps(tf_config)
-    per_worker_batch_size = 64
     tf_config = json.loads(os.environ['TF_CONFIG'])
-    num_workers = len(tf_config['cluster']['worker'])
 
     strategy = tf.distribute.MultiWorkerMirroredStrategy()
+    options = tf.data.Options()
+    options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.AUTO
 
-    global_batch_size = per_worker_batch_size * num_workers
-    multi_worker_dataset = mnist_setup.mnist_dataset(global_batch_size)
+    global_batch_size = 64
+    multi_worker_dataset = mnist_setup.mnist_dataset(global_batch_size).with_options(options)
+
 
     with strategy.scope():
     # Model building/compiling need to be within `strategy.scope()`.
