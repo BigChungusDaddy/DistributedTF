@@ -7,25 +7,17 @@ import mnist_setup
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 os.environ.pop('TF_CONFIG', None)
 
-tf_config = {
-    'cluster': {
-        'worker': ['localhost:12345', 'localhost:23456']
-    },
-    'task': {'type': 'worker', 'index': 0}
-}
-
-os.environ['TF_CONFIG'] = json.dumps(tf_config)
-
 def main(worker):
+    tf_config = {
+        'cluster': {
+            'worker': ['192.168.1.1:12345', '192.168.1.2:23456']
+            },
+            'task': {'type': 'worker', 'index': 0}
+        }
     if worker == 1:
-        tf_config = {
-            'cluster': {
-                'worker': ['localhost:12345', 'localhost:23456']
-                },
-                'task': {'type': 'worker', 'index': 0}
-                }
         tf_config['task']['index'] = 1
-        os.environ['TF_CONFIG'] = json.dumps(tf_config)
+        
+    os.environ['TF_CONFIG'] = json.dumps(tf_config)
     per_worker_batch_size = 64
     tf_config = json.loads(os.environ['TF_CONFIG'])
     num_workers = len(tf_config['cluster']['worker'])
