@@ -9,3 +9,4 @@ cd Python-3.9.15
 ./configure
 make altinstall
 cd ..
+pip3.9 install tf-nightly
