@@ -18,6 +18,12 @@ os.environ['TF_CONFIG'] = json.dumps(tf_config)
 
 def main(worker):
     if worker == 1:
+        tf_config = {
+            'cluster': {
+                'worker': ['localhost:12345', 'localhost:23456']
+                },
+                'task': {'type': 'worker', 'index': 0}
+                }
         tf_config['task']['index'] = 1
         os.environ['TF_CONFIG'] = json.dumps(tf_config)
     per_worker_batch_size = 64
