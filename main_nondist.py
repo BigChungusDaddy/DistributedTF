@@ -4,8 +4,7 @@ import sys
 import mnist_setup
 import time
 
-def main():
-    batch_size = 64
+def main(batch_size):
     single_worker_dataset = mnist_setup.mnist_dataset(batch_size)
     single_worker_model = mnist_setup.build_and_compile_cnn_model()
     start = time.time()
@@ -13,4 +12,4 @@ def main():
     print(time.time() - start)
 
 if __name__ == '__main__':
-    main()
+    main(int(sys.argv[1]))
