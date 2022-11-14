@@ -11,7 +11,7 @@ os.environ.pop('TF_CONFIG', None)
 def main(worker, batch_size):
     tf_config = {
         'cluster': {
-            'worker': ['192.168.1.1:12345', '192.168.1.2:23456']
+            'worker': ['192.168.1.1:12345', '192.168.1.2:23456', '192.168.1.3:23456']
             },
             'task': {'type': 'worker', 'index': 0}
         }
