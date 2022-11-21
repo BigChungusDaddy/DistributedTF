@@ -34,7 +34,7 @@ def main(worker, batch_size):
         multi_worker_model = mnist_setup.build_and_compile_cnn_model()
     
     start = time.time()
-    multi_worker_model.fit(multi_worker_dataset, epochs=100, steps_per_epoch=70)
+    multi_worker_model.fit(multi_worker_dataset, epochs=100, steps_per_epoch=100)
     print(time.time() - start)
 
 if __name__ == '__main__':
